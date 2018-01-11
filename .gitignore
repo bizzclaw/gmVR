@@ -1,0 +1,55 @@
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+.vs/
+.lastbuildstate
+*.log
+*.tlog
+*.lastbuildstate
+*.opendb
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]elease_nossl/
+x64/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+includes/*
+projects/*
+old.cpp
