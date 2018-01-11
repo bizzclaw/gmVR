@@ -1,7 +1,7 @@
-local RECIEVE_ALL = 1 // player vr fully recieved
-local RECIEVE_PARTIAL = 2 // only recieve the position of the player's head and hands, no gestures.
-local RECIEVE_LOWFPS = 3 // partial at a lower framerate
-local RECIEVE_NONE = 4 // just appear as a regular (Non VR) player
+local RECIEVE_ALL = 1 -- player vr fully recieved
+local RECIEVE_PARTIAL = 2 -- only recieve the position of the player's head and hands, no gestures.
+local RECIEVE_LOWFPS = 3 -- partial at a lower framerate
+local RECIEVE_NONE = 4 -- just appear as a regular (Non VR) player
 
 if CLIENT then
 	require("GmodVR")
