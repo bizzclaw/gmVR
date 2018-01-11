@@ -42,7 +42,17 @@ Uses a C++ module to connect OpenVR methods with Gmod lua.
 
 4. now, simply run buildprojects.bat, the batch file will generate a project folder with a visual studio project that can be loaded.
 
-__This Guide is a work in progress, I need to test with another computer to make sure everything works as it should when tested__
+5. Download the latest [openvr_api.dll](https://github.com/ValveSoftware/openvr/raw/master/bin/win32/openvr_api.dll) and place it in your __steam/steamapps/common/garrysmod/__ folder. (the one with hl2.exe in it)
+
+## Usage
+
+* When you're ready to compile, build from visual studio and move the compiled gmcl_gvr_win32.dll from the __build__ folder into your __steam/steamapps/common/garrysmod/garrysmod/lua/bin__ folder
+
+___
+
+###### This README is a work in progress, I need to test with another computer to make sure everything works as it should when followed.
 
 ## Credits
 __Datamats__ - Created the original [gmcl_openvr](https://github.com/Datamats/gmcl_openvr) that this is largely based off of and used as reference.
+
+__Joseph (Bizz) Tomlinson__ - Lua scripting, Stringing C++ components together and finding out how to get it to work on windows.
