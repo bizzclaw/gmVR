@@ -54,3 +54,5 @@ includes/*
 projects/*
 old.cpp
 buildconfig.lua
+premake5.exe
+premake4.exe
