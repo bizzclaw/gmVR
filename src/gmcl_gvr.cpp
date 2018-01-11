@@ -12,14 +12,11 @@ HmdMatrix34_t HmdMatrix;
 
 LUA_FUNCTION( IsHmdPresent )
 {
-	LUA->PushBool(VR_IsHmdPresent());
-	return 1;
+		LUA->PushBool(VR_IsHmdPresent());
+		return 1;
 }
 GMOD_MODULE_OPEN()
 {
-    //
-    // Set Global[ "TextFunction" ] = MyExampleFunction
-    //
     LUA->PushSpecial( SPECIAL_GLOB );
     LUA->PushString( "gmodvr" );
     LUA->PushCFunction( IsHmdPresent );
