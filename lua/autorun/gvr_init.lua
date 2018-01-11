@@ -13,6 +13,6 @@ else
 		end
 	end
 
-	include("gmvr/cl_render.lua")
+	include("gvr/cl_render.lua")
 end
-include("gmvr/sh_tracking.lua")
+include("gvr/sh_tracking.lua")

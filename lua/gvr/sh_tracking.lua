@@ -4,7 +4,7 @@ local RECIEVE_LOWFPS = 3 -- partial at a lower framerate
 local RECIEVE_NONE = 4 -- just appear as a regular (Non VR) player
 
 if CLIENT then
-	require("GmodVR")
+	require("gmodvr")
 else
 	util.AddNetworkString("GVR_UpdatePose")
 

@@ -43,3 +43,6 @@ Uses a C++ module to connect OpenVR methods with Gmod lua.
 4. now, simply run buildprojects.bat, the batch file will generate a project folder with a visual studio project that can be loaded.
 
 __This Guide is a work in progress, I need to test with another computer to make sure everything works as it should when tested__
+
+## Credits
+__Datamats__ - Created the original [gmcl_openvr](https://github.com/Datamats/gmcl_openvr) that this is largely based off of and used as reference.
