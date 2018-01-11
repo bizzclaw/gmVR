@@ -45,9 +45,10 @@ GMOD_MODULE_OPEN()
 {
 	LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
 		LUA->CreateTable();
-			LUA->PushCFunction(IsHmdPresent); LUA->SetField(-2, "IsHmdPresent");
+			LUA->PushCFunction(GetVersion); LUA->SetField(-2, "GetVersion");
 			LUA->PushCFunction(InitVR); LUA->SetField(-2, "InitVR");
-		LUA->SetField(-2, "gmodvr");
+			LUA->PushCFunction(IsHmdPresent); LUA->SetField(-2, "IsHmdPresent");
+		LUA->SetField(-2, "gvr");
 	LUA->Pop();
 	return 0;
 }
