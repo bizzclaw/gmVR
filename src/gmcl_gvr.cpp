@@ -21,6 +21,12 @@ LUA_FUNCTION( GetVersion )
 	return 1;
 }
 
+LUA_FUNCTION(IsHmdPresent)
+{
+	LUA->PushBool(VR_IsHmdPresent());
+	return 1;
+}
+
 LUA_FUNCTION(InitVR)
 {
 	EVRInitError eError = VRInitError_None;
@@ -35,11 +41,30 @@ LUA_FUNCTION(InitVR)
 	return 1;
 }
 
-LUA_FUNCTION( CountDevices )
+LUA_FUNCTION(CountDevices)
 {
 	LUA->PushNumber(vr::k_unMaxTrackedDeviceCount);
 	return 1;
 }
+
+int ResolveDeviceType( int deviceId ){
+	ETrackedDeviceClass deviceClass = VRSystem()->GetTrackedDeviceClass(deviceId);
+
+	if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_HMD)
+	{
+		return 1;
+	}
+	else if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_Controller)
+	{
+		return 2;
+	}
+	else
+	{
+		return 0;
+	}
+	return 1;
+}
+
 
 LUA_FUNCTION( GetDevicePose )
 {
@@ -52,28 +77,11 @@ LUA_FUNCTION(GetDeviceClass)
 {
 	(LUA->CheckType(1, Type::NUMBER));
 	int deviceId = LUA->GetNumber(1);
-	ETrackedDeviceClass deviceClass = VRSystem()->GetTrackedDeviceClass(deviceId);
-	
-	if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_HMD)
-	{
-		LUA->PushNumber(1); // HMD
-	}
-	else if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_Controller)
-	{
-		LUA->PushNumber(2); // controler
-	}
-	else 
-	{
-		LUA->PushNumber(0); // Unknown
-	}
+
+	LUA->PushNumber(ResolveDeviceType(deviceId));
 	return 1;
 }
 
-LUA_FUNCTION( IsHmdPresent )
-{
-		LUA->PushBool(VR_IsHmdPresent());
-		return 1;
-}
 
 GMOD_MODULE_OPEN()
 {
