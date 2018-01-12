@@ -10,7 +10,7 @@ using namespace GarrysMod::Lua;
 using namespace vr;
 
 IVRSystem *m_pHMD;
-HmdMatrix34_t HmdMatrix;
+
 
 uint32_t m_nRenderWidth;
 uint32_t m_nRenderHeight;
@@ -32,6 +32,40 @@ LUA_FUNCTION(InitVR)
 	}
 	m_pHMD->GetRecommendedRenderTargetSize(&m_nRenderWidth, &m_nRenderHeight);
 	LUA->PushBool(true);
+	return 1;
+}
+
+LUA_FUNCTION( CountDevices )
+{
+	LUA->PushNumber(vr::k_unMaxTrackedDeviceCount);
+	return 1;
+}
+
+LUA_FUNCTION( GetDevicePose )
+{
+	(LUA->CheckType(1, Type::NUMBER));
+	int deviceId = LUA->GetNumber(1);
+	
+}
+
+LUA_FUNCTION(GetDeviceClass)
+{
+	(LUA->CheckType(1, Type::NUMBER));
+	int deviceId = LUA->GetNumber(1);
+	ETrackedDeviceClass deviceClass = VRSystem()->GetTrackedDeviceClass(deviceId);
+	
+	if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_HMD)
+	{
+		LUA->PushNumber(1); // HMD
+	}
+	else if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_Controller)
+	{
+		LUA->PushNumber(2); // controler
+	}
+	else 
+	{
+		LUA->PushNumber(0); // Unknown
+	}
 	return 1;
 }
 
