@@ -3,26 +3,6 @@ local RECIEVE_PARTIAL = 2 -- only recieve the position of the player's head and 
 local RECIEVE_LOWFPS = 3 -- partial at a lower framerate
 local RECIEVE_NONE = 4 -- just appear as a regular (Non VR) player
 
-if CLIENT then
-	require("gvr")
-	print(gvr.InitVR())
-else
-	util.AddNetworkString("GVR_UpdatePose")
-
-
-	net.Receive("GVR_UpdateTracking", function(len, ply)
-		local updateRate = GVR.GetConfig("updaterate")
-		local lastUpdate = ply.VRLastUpdate or 0
-		if CurTime() < lastUpdate + updateRate then return false end
-
-		for k, v in pairs(player.GetAll()) do
-			local filter = GVR.GetFilter()
-			if filter == RECIEVE_NONE then continue end
-		end
-		ply.VRLastUpdate = CurTime()
-	end)
-end
-
 
 function GVR.GetFilter(plyInVR, ply)
 	if plyInVR == ply then return false end
