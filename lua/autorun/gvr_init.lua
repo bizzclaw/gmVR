@@ -1,5 +1,9 @@
 GVR = GVR or {}
-GVR.__index = OpenVR
+GVR.__index = GVR
+
+DEVICETYPE_HMD = 1
+DEVICETYPE_LHAND = 2
+DEVICETYPE_RHAND = 3
 
 if SERVER then
 	AddCSLuaFile("gvr/sh_tracking.lua")
@@ -8,7 +12,6 @@ if SERVER then
 	include("gvr/sv_config.lua")
 	include("gvr/sv_tracking.lua")
 else
-
 	GVR.Set = function(enable)
 		if enable then
 			OpenVR.InitVR()

@@ -3,7 +3,6 @@ local RECIEVE_PARTIAL = 2 -- only recieve the position of the player's head and 
 local RECIEVE_LOWFPS = 3 -- partial at a lower framerate
 local RECIEVE_NONE = 4 -- just appear as a regular (Non VR) player
 
-
 function GVR.GetFilter(plyInVR, ply)
 	if plyInVR == ply then return false end
 	local plyInVRPos = plyInVR:GetPos()
@@ -22,12 +21,12 @@ end
 
 function GVR.UpdatePose(ply)
 	if SERVER or ply != LocalPlayer() then return false end
-	ply.VRPose = {
-		head = {
-			pos = GmodVR.GetHeadsetVector(),
-			ang = GmodVR.GetHeadsetAngle()
-		}
-	}
+	ply.VRPose = {}
+
+	for id, device in pairs(GVR.Device.List) do
+		local index = device.deviceType
+		ply.VRPose[index] = device.updatePose()
+	end
 
 	net.Start("GVR_UpdatePose")
 	net.WriteTable(ply.VRPose)
@@ -41,9 +40,11 @@ end
 
 function GVR.StartCommand(ply, cmd)
 	if ply.InVR then
-		local vrClient = GVR.UpdatePose()
+		GVR.UpdatePose()
 
+		if ply.VRPose then
 
+		end
 	end
 end
 

@@ -52,25 +52,25 @@ int ResolveDeviceType( int deviceId ){
 
 	ETrackedDeviceClass deviceClass = VRSystem()->GetTrackedDeviceClass(deviceId);
 
-	if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_HMD)
-	{
-		return 1;
+	return static_cast<int>(deviceClass);
+}
+
+int ResolveDeviceRole(int deviceId) {
+
+	if (!vr_pointer) {
+		return -1;
 	}
-	else if (deviceClass == ETrackedDeviceClass::TrackedDeviceClass_Controller)
-	{
-		return 2;
-	}
-	else
-	{
-		return 0;
-	}
+
+	int deviceRole = VRSystem()->GetInt32TrackedDeviceProperty(deviceId, ETrackedDeviceProperty::Prop_ControllerRoleHint_Int32);
+	
+	return static_cast<int>(deviceRole);
 }
 
 
-LUA_FUNCTION( GetDevicePose )
+LUA_FUNCTION(GetDevicePose)
 {
 	(LUA->CheckType(1, Type::NUMBER));
-	int deviceId = LUA->GetNumber(1);
+	int deviceId = static_cast<int>(LUA->GetNumber(1));
 	LUA->PushBool(false);
 	return 1;
 }
@@ -78,8 +78,17 @@ LUA_FUNCTION( GetDevicePose )
 LUA_FUNCTION(GetDeviceClass)
 {
 	(LUA->CheckType(1, Type::NUMBER));
-	int deviceId = LUA->GetNumber(1);
+	int deviceId = static_cast<int>(LUA->GetNumber(1));
 	int type = ResolveDeviceType(deviceId);
+	LUA->PushNumber(type);
+	return 1;
+}
+
+LUA_FUNCTION(GetDeviceRole)
+{
+	(LUA->CheckType(1, Type::NUMBER));
+	int deviceId = static_cast<int>(LUA->GetNumber(1));
+	int type = ResolveDeviceRole(deviceId);
 	LUA->PushNumber(type);
 	return 1;
 }
@@ -94,6 +103,7 @@ GMOD_MODULE_OPEN()
 			LUA->PushCFunction(InitVR); LUA->SetField(-2, "InitVR");
 			LUA->PushCFunction(CountDevices); LUA->SetField(-2, "CountDevices");
 			LUA->PushCFunction(GetDeviceClass); LUA->SetField(-2, "GetDeviceClass");
+			LUA->PushCFunction(GetDeviceRole); LUA->SetField(-2, "GetDeviceRole");
 		LUA->SetField(-2, "gvr");
 	LUA->Pop();
 	return 0;
